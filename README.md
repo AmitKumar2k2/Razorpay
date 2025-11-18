@@ -5,7 +5,17 @@ The project includes a premium hero section, parallax card animations, scroll-tr
 ---
 
 ## Preview  
-(Add your project demo link or screenshot here)
+![1](public/1.png)
+![2](public/2.png)
+![3](public/3.png)
+![4](public/4.png)
+![5](public/5.png)
+
+
+
+
+
+
 
 ---
 
