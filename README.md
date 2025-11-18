@@ -5,8 +5,6 @@ The project includes a premium hero section, parallax card animations, scroll-tr
 ---
 
 ## Preview  
-
-
 ---
 
 ## Features  
