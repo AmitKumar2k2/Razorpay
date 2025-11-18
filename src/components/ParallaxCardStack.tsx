@@ -1,4 +1,3 @@
-// ParallaxCardStack.tsx
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 
@@ -11,7 +10,7 @@ const ParallaxCardStack: React.FC<ParallaxCardStackProps> = ({ cardImages }) => 
   const cardsRef = useRef<HTMLDivElement[]>([]);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
-  // --- CONFIG (we'll adapt some values for small screens) ---
+  // small screens ---
   const OFFSET_X_DESKTOP = 0;
   const OFFSET_Y_DESKTOP = 30;
   const DEPTH_MULT_DESKTOP = 20;
@@ -27,8 +26,8 @@ const ParallaxCardStack: React.FC<ParallaxCardStackProps> = ({ cardImages }) => 
   const FLOAT_AMPLITUDE_MOBILE = 4;
 
   useEffect(() => {
-    // detect small screens and update state (also listen for changes)
-    const mq = window.matchMedia('(max-width: 640px)'); // tailwind 'sm' breakpoint
+    // detect small screens 
+    const mq = window.matchMedia('(max-width: 640px)'); 
     const update = () => setIsSmallScreen(mq.matches);
     update();
     mq.addEventListener('change', update);
@@ -43,10 +42,10 @@ const ParallaxCardStack: React.FC<ParallaxCardStackProps> = ({ cardImages }) => 
       cleanup?.();
       gsap.killTweensOf(cardsRef.current);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, [isSmallScreen, cardImages.length]);
 
-  /** INITIAL DEPTH + 3D CONFIG */
+  
   const setupInitial3D = () => {
     const DEPTH_MULT = isSmallScreen ? DEPTH_MULT_MOBILE : DEPTH_MULT_DESKTOP;
     cardsRef.current.forEach((card, i) => {
@@ -60,7 +59,7 @@ const ParallaxCardStack: React.FC<ParallaxCardStackProps> = ({ cardImages }) => 
     });
   };
 
-  /** FULL 3D ANIMATION MODE — returns cleanup fn */
+  
   const applyMotionEffects = (): (() => void) => {
     const OFFSET_X = isSmallScreen ? OFFSET_X_MOBILE : OFFSET_X_DESKTOP;
     const OFFSET_Y = isSmallScreen ? OFFSET_Y_MOBILE : OFFSET_Y_DESKTOP;
@@ -71,7 +70,7 @@ const ParallaxCardStack: React.FC<ParallaxCardStackProps> = ({ cardImages }) => 
     cardsRef.current.forEach((card, i) => {
       if (!card) return;
 
-      // entrance animation (faster & smaller offsets on mobile)
+      
       gsap.fromTo(
         card,
         { x: -10 - i * 3, y: 20 + i * 6, opacity: 0, scale: isSmallScreen ? 0.95 : 0.97 },
@@ -87,7 +86,7 @@ const ParallaxCardStack: React.FC<ParallaxCardStackProps> = ({ cardImages }) => 
         }
       );
 
-      // subtle floating + small horizontal drift
+      //  floating 
       gsap.to(card, {
         y: `+=${(i % 2 === 0 ? 1 : -1) * FLOAT_AMPLITUDE}`,
         x: `+=${(i % 2 === 0 ? -1 : 1) * (isSmallScreen ? 3 : 8)}`,
@@ -99,8 +98,6 @@ const ParallaxCardStack: React.FC<ParallaxCardStackProps> = ({ cardImages }) => 
         overwrite: false,
       });
     });
-
-    // For desktop we keep a subtle mouse-tilt; for mobile we make it minimal (or skip heavy tilt)
     const handleMouseTilt = (e: MouseEvent) => {
       const rect = containerRef.current?.getBoundingClientRect();
       if (!rect) return;
@@ -124,10 +121,9 @@ const ParallaxCardStack: React.FC<ParallaxCardStackProps> = ({ cardImages }) => 
       });
     };
 
-    // Attach mousemove only on non-touch devices for better perf; still safe on mobile but tilt reduced
     containerRef.current?.addEventListener('mousemove', handleMouseTilt);
 
-    // cleanup function
+
     return () => {
       containerRef.current?.removeEventListener('mousemove', handleMouseTilt);
     };
@@ -139,23 +135,16 @@ const ParallaxCardStack: React.FC<ParallaxCardStackProps> = ({ cardImages }) => 
         const rotate = BASE_ROTATE + i * (isSmallScreen ? ROTATION_STEP_MOBILE : ROTATION_STEP_DESKTOP);
         const zIndex = cardImages.length - i;
 
-        /* NOTE:
-           - Use responsive Tailwind classes for card size:
-             - mobile: w-[220px] h-[140px]
-             - sm:     w-[300px] h-[180px]
-             - md+:    w-[400px] h-[250px]
-           - keeping the rest of styling in className for clarity
-        */
+      
         return (
           <div
             key={i}
             ref={(el) => el && (cardsRef.current[i] = el)}
             className="absolute rounded-lg overflow-hidden shadow-2xl"
             style={{
-              /* keep rotate in style so GSAP can override transforms cleanly */
+              
               transform: `rotateZ(${rotate}deg)`,
               zIndex,
-              /* position offsets - these are kept relative so the stack sits nicely on the right */
               bottom: '2%',
               right: isSmallScreen ? '6%' : '20%',
             }}
@@ -208,7 +197,6 @@ const ParallaxCardStack: React.FC<ParallaxCardStackProps> = ({ cardImages }) => 
   );
 };
 
-/** Small hook to detect "reduced motion" (keeps same behavior as before) */
 function useReducedMotion() {
   const [reduced, setReduced] = useState(false);
   useEffect(() => {

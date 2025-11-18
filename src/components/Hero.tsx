@@ -1,4 +1,3 @@
-// Hero.tsx
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -85,7 +84,6 @@ const Hero: React.FC = () => {
     return () => ctx.revert();
   }, []);
 
-  // card images (credit / debit / prepaid style)
   const cardImages = [
     'https://i.pinimg.com/1200x/ff/c1/e3/ffc1e336102fca3318766364dc7c6a12.jpg',
     'https://images.unsplash.com/photo-1612795459707-1002f77720d2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D=', 
@@ -108,30 +106,25 @@ const Hero: React.FC = () => {
       <AnimatedObjects count={5} color="emerald" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Two-column layout: left big headline, right card stack */}
+
         <div className="grid lg:grid-cols-12 gap-8 items-center">
-          {/* LEFT: big headline — occupies about 50% on large screens */}
           <div className="lg:col-span-7 text-center lg:text-left z-10">
             <h1
               ref={headlineRef}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight"
               style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
             >
-              {/* New layout: on small screens this stacks vertically, on lg it arranges pairs across */}
               <div className="inline-block max-w-full lg:max-w-[50vw] mx-auto lg:mx-0">
-                {/* Line 1: "Power  your" */}
                 <div className="flex flex-col lg:flex-row lg:items-end lg:gap-8">
                   <span className="headline-word block">Power</span>
                   <span className="headline-word block">your</span>
                 </div>
 
-                {/* Line 2: "finance,  grow" */}
                 <div className="flex flex-col lg:flex-row lg:items-end lg:gap-8">
                   <span className="headline-word block text-emerald-400">finance,</span>
                   <span className="headline-word block text-emerald-400">grow</span>
                 </div>
 
-                {/* Line 3: "your business" (kept together) */}
                 <div className="flex flex-col lg:flex-row lg:items-end lg:gap-8">
                   <span className="headline-word block">your</span>
                   <span className="headline-word block">business</span>
@@ -151,7 +144,6 @@ const Hero: React.FC = () => {
               ref={ctaRef}
               className="flex flex-col sm:flex-row gap-4 mb-12 items-center sm:items-start"
             >
-              {/* Each wrapper makes the buttons full-width on mobile and equal-flex on sm+ */}
               <div className="w-full sm:flex-1">
                 <FluidButton variant="primary" className="w-full">
                   <span>Get Started</span>
@@ -174,7 +166,6 @@ const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* RIGHT: card stack aligned center parallel to the heading. */}
           <div className="lg:col-span-5 h-[520px] relative flex items-center justify-end">
             <div className="w-full flex items-center justify-center lg:-mr-16 xl:-mr-24">
               <ParallaxCardStack cardImages={cardImages} />
@@ -182,7 +173,6 @@ const Hero: React.FC = () => {
           </div>
         </div>
 
-        {/* bottom trusted + stats (unchanged) */}
         <div className="mt-24 pt-12 border-t border-emerald-900/30">
           <div className="grid md:grid-cols-2 gap-12">
             <div ref={trustStripRef} className="flex items-center gap-8 overflow-x-auto">

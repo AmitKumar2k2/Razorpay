@@ -27,12 +27,10 @@ const AnimatedCounter = ({
     const element = counterRef.current;
     if (!element) return;
 
-    // Respect prefers-reduced-motion
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const finalText = `${prefix}${Math.floor(end).toLocaleString()}${suffix}`;
 
     if (prefersReduced) {
-      // Immediately set final value and skip animation
       lastValueRef.current = finalText;
       setDisplayText(finalText);
       return;
@@ -54,7 +52,6 @@ const AnimatedCounter = ({
         onUpdate() {
           const current = Math.floor(obj.value);
           const newText = `${prefix}${current.toLocaleString()}${suffix}`;
-          // avoid calling setState when the displayed text hasn't changed
           if (newText !== lastValueRef.current) {
             lastValueRef.current = newText;
             setDisplayText(newText);

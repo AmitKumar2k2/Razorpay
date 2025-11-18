@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 interface AnimatedObjectsProps {
-  count?: number;  // fewer objects = lower density
+  count?: number;  
 }
 
 const AnimatedObjects = ({ count = 6 }: AnimatedObjectsProps) => { 
@@ -40,7 +40,7 @@ const AnimatedObjects = ({ count = 6 }: AnimatedObjectsProps) => {
     <div
       ref={root}
       className="absolute inset-0 pointer-events-none"
-      style={{ zIndex: 20 }}  // very low so it stays in background
+      style={{ zIndex: 20 }}  
     >
       {Array.from({ length: count }).map((_, i) => {
         const left = Math.random() * 100;
@@ -54,10 +54,10 @@ const AnimatedObjects = ({ count = 6 }: AnimatedObjectsProps) => {
               position: "absolute",
               left: `${left}%`,
               top: `${top}%`,
-              width: "100px",     // ⬅ extra small
-              height: "100px",    // ⬅ extra small
+              width: "100px",     
+              height: "100px",    
               borderRadius: "50%",
-              background: "rgba(16,185,129,0.18)", // subtle emerald dot
+              background: "rgba(16,185,129,0.18)", 
               opacity: 0.2,
             }}
           />

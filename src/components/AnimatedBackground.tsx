@@ -19,7 +19,6 @@ const AnimatedBackground = () => {
       const circles = gsap.utils.toArray<HTMLElement>('.floating-circle');
 
       circles.forEach((circle) => {
-        // random positional float
         gsap.to(circle, {
           x: 'random(-100, 100)',
           y: 'random(-100, 100)',
@@ -29,7 +28,6 @@ const AnimatedBackground = () => {
           ease: 'sine.inOut',
         });
 
-        // subtle scale pulse
         gsap.to(circle, {
           scale: 'random(0.8, 1.2)',
           duration: 'random(2, 4)',
